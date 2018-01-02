@@ -58,6 +58,31 @@ public class VehicleDao {
 		}
 		return tempVehicle;
 	}
+	
+	public static List<Vehicle> loadAllbyUserId(int id) {
+		String sql="Select * from Vehicle where client_id = ?";
+		List<Vehicle> listVeh = new ArrayList<>();
+		try (Connection con = DbUtil.getConn()) {
+			PreparedStatement prepStat = con.prepareStatement(sql);
+			prepStat.setInt(1, id);
+			try (ResultSet rs = prepStat.executeQuery()) {
+				while(rs.next()) {
+					Vehicle tempVehicle = new Vehicle();
+					tempVehicle.setId(rs.getInt("id"));
+					tempVehicle.setModel(rs.getString("model"));
+					tempVehicle.setBrand(rs.getString("brand"));
+					tempVehicle.setProductionYear(rs.getDate("production_year"));
+					tempVehicle.setRegistrationNumber(rs.getString("registration_number"));
+					tempVehicle.setNextReviewDate(rs.getDate("next_review_date"));
+					tempVehicle.setClientId(rs.getInt("client_id"));
+					listVeh.add(tempVehicle);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listVeh;
+	}
 
 	public static void saveToDb(Vehicle vehicle) {
 		int id = vehicle.getId();

@@ -8,10 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.coderslab.model.Employee;
 import pl.coderslab.model.Orders;
 
 public class OrdersDao {
-
+	
 	public static List<Orders> loadAll() {
 		String sql = "Select * from Orders;";
 		List<Orders> ordersList = new ArrayList<>();
@@ -50,7 +51,7 @@ public class OrdersDao {
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setInt(1, id);
-			try (ResultSet rs = prepStat.executeQuery(sql)) {
+			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempOrder.setId(rs.getInt("id"));
 					tempOrder.setReceiveDate(rs.getDate("receive_date"));
@@ -73,9 +74,41 @@ public class OrdersDao {
 		}
 		return tempOrder;
 	}
+	
+	public static List<Orders> loadAllByStatus(int id) {
+		String sql = "Select * from Orders where status_id = ?;";
+		List<Orders> ordersList = new ArrayList<>();
+		try (Connection con = DbUtil.getConn()) {
+			PreparedStatement prepStat = con.prepareStatement(sql);
+			prepStat.setInt(1, id);
+			try (ResultSet rs = prepStat.executeQuery()) {
+				while (rs.next()) {
+					Orders tempOrder = new Orders();
+					tempOrder.setId(rs.getInt("id"));
+					tempOrder.setReceiveDate(rs.getDate("receive_date"));
+					tempOrder.setExpRepiarDate(rs.getDate("expect_repair_date"));
+					tempOrder.setBeginRepair(rs.getDate("repair_begin"));
+					tempOrder.setEmployeeId(rs.getInt("employee_id"));
+					tempOrder.setProbDesc(rs.getString("problem_description"));
+					tempOrder.setRepDesc(rs.getString("repair_description"));
+					tempOrder.setStatusId(rs.getInt("status_id"));
+					tempOrder.setCarId(rs.getInt("car_id"));
+					tempOrder.setCustomerCost(rs.getDouble("customer_cost"));
+					tempOrder.setPartsPrice(rs.getDouble("parts_price"));
+					tempOrder.setManHour(rs.getDouble("man_hour"));
+					tempOrder.setWorkHour(rs.getDouble("work_hour"));
+					ordersList.add(tempOrder);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ordersList;
+	}
 
 	public static void saveToDb(Orders order) {
 		int id = order.getId();
+		Employee tempEmpl = EmployeeDao.loadById(order.getEmployeeId());
 		try (Connection con = DbUtil.getConn()) {
 			if (id == 0) {
 				String sql = "insert into Orders " + "(receive_date, expect_repair_date, repair_begin, employee_id, "
@@ -92,7 +125,7 @@ public class OrdersDao {
 				prepStat.setInt(8, order.getCarId());
 				prepStat.setDouble(9, order.getCustomerCost());
 				prepStat.setDouble(10, order.getPartsPrice());
-				prepStat.setDouble(11, order.getManHour());
+				prepStat.setDouble(11, tempEmpl.getManHour());
 				prepStat.setDouble(12, order.getWorkHour());
 
 				prepStat.executeUpdate();
@@ -113,7 +146,7 @@ public class OrdersDao {
 				prepStat.setInt(8, order.getCarId());
 				prepStat.setDouble(9, order.getCustomerCost());
 				prepStat.setDouble(10, order.getPartsPrice());
-				prepStat.setDouble(11, order.getManHour());
+				prepStat.setDouble(11, tempEmpl.getManHour());
 				prepStat.setDouble(12, order.getWorkHour());
 				prepStat.setInt(13, order.getId());
 				prepStat.executeUpdate();
