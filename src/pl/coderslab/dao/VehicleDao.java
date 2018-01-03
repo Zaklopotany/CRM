@@ -42,7 +42,7 @@ public class VehicleDao {
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setInt(1, id);
-			try (ResultSet rs = prepStat.executeQuery(sql)) {
+			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempVehicle.setId(rs.getInt("id"));
 					tempVehicle.setModel(rs.getString("model"));

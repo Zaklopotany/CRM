@@ -37,7 +37,7 @@ public class StatusDao {
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setInt(1, id);
-			try (ResultSet rs = prepStat.executeQuery(sql)) {
+			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempStat.setId(rs.getInt("id"));
 					tempStat.setStatus(rs.getString("status"));					

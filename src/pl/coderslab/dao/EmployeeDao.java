@@ -43,7 +43,7 @@ public class EmployeeDao {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setString(1, spec);
 			prepStat.setString(2, value);
-			try (ResultSet rs = prepStat.executeQuery(sql)) {
+			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					Employee tempEmpl = new Employee();
 					tempEmpl.setId(rs.getInt("id"));
@@ -68,7 +68,7 @@ public class EmployeeDao {
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setInt(1, id);
-			try (ResultSet rs = prepStat.executeQuery(sql)) {
+			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempEmpl.setId(rs.getInt("id"));
 					tempEmpl.setFirstname(rs.getString("firstname"));

@@ -44,7 +44,7 @@ public class CustomerDao {
 			prepStat.setString(1, spec);
 			prepStat.setString(2, value);			
 			
-			try(ResultSet rs = prepStat.executeQuery(sql)) {
+			try(ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					Customer tempCust = new Customer();
 					tempCust.setId(rs.getInt("id"));
@@ -67,7 +67,7 @@ public class CustomerDao {
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
 			prepStat.setInt(1, id);
-			try(ResultSet rs = prepStat.executeQuery(sql)) {
+			try(ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempCust.setId(rs.getInt("id"));
 					tempCust.setFirstname(rs.getString("firstname"));

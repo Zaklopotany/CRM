@@ -22,9 +22,9 @@ public class OrdersDao {
 				while (rs.next()) {
 					Orders tempOrder = new Orders();
 					tempOrder.setId(rs.getInt("id"));
-					tempOrder.setReceiveDate(rs.getDate("receive_date"));
-					tempOrder.setExpRepiarDate(rs.getDate("expect_repair_date"));
-					tempOrder.setBeginRepair(rs.getDate("repair_begin"));
+					tempOrder.setReceiveDate(rs.getString("receive_date"));
+					tempOrder.setExpRepiarDate(rs.getString("expect_repair_date"));
+					tempOrder.setBeginRepair(rs.getString("repair_begin"));
 					tempOrder.setEmployeeId(rs.getInt("employee_id"));
 					tempOrder.setProbDesc(rs.getString("problem_description"));
 					tempOrder.setRepDesc(rs.getString("repair_description"));
@@ -54,9 +54,9 @@ public class OrdersDao {
 			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempOrder.setId(rs.getInt("id"));
-					tempOrder.setReceiveDate(rs.getDate("receive_date"));
-					tempOrder.setExpRepiarDate(rs.getDate("expect_repair_date"));
-					tempOrder.setBeginRepair(rs.getDate("repair_begin"));
+					tempOrder.setReceiveDate(rs.getString("receive_date"));
+					tempOrder.setExpRepiarDate(rs.getString("expect_repair_date"));
+					tempOrder.setBeginRepair(rs.getString("repair_begin"));
 					tempOrder.setEmployeeId(rs.getInt("employee_id"));
 					tempOrder.setProbDesc(rs.getString("problem_description"));
 					tempOrder.setRepDesc(rs.getString("repair_description"));
@@ -85,9 +85,9 @@ public class OrdersDao {
 				while (rs.next()) {
 					Orders tempOrder = new Orders();
 					tempOrder.setId(rs.getInt("id"));
-					tempOrder.setReceiveDate(rs.getDate("receive_date"));
-					tempOrder.setExpRepiarDate(rs.getDate("expect_repair_date"));
-					tempOrder.setBeginRepair(rs.getDate("repair_begin"));
+					tempOrder.setReceiveDate(rs.getString("receive_date"));
+					tempOrder.setExpRepiarDate(rs.getString("expect_repair_date"));
+					tempOrder.setBeginRepair(rs.getString("repair_begin"));
 					tempOrder.setEmployeeId(rs.getInt("employee_id"));
 					tempOrder.setProbDesc(rs.getString("problem_description"));
 					tempOrder.setRepDesc(rs.getString("repair_description"));
@@ -115,9 +115,9 @@ public class OrdersDao {
 						+ "problem_description, repair_description, status_id, car_id, "
 						+ "customer_cost, parts_price, man_hour, work_hour) " + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement prepStat = con.prepareStatement(sql);
-				prepStat.setDate(1, order.getReceiveDate());
-				prepStat.setDate(2, order.getExpRepiarDate());
-				prepStat.setDate(3, order.getBeginRepair());
+				prepStat.setString(1, order.getReceiveDate());
+				prepStat.setString(2, order.getExpRepiarDate());
+				prepStat.setString(3, order.getBeginRepair());
 				prepStat.setInt(4, order.getEmployeeId());
 				prepStat.setString(5, order.getProbDesc());
 				prepStat.setString(6, order.getRepDesc());
@@ -136,9 +136,9 @@ public class OrdersDao {
 						+ " car_id = ?,customer_cost = ?, parts_price = ?, "
 						+ "man_hour = ?, work_hour = ? where id = ?";
 				PreparedStatement prepStat = con.prepareStatement(sql);
-				prepStat.setDate(1, order.getReceiveDate());
-				prepStat.setDate(2, order.getExpRepiarDate());
-				prepStat.setDate(3, order.getBeginRepair());
+				prepStat.setString(1, order.getReceiveDate());
+				prepStat.setString(2, order.getExpRepiarDate());
+				prepStat.setString(3, order.getBeginRepair());
 				prepStat.setInt(4, order.getEmployeeId());
 				prepStat.setString(5, order.getProbDesc());
 				prepStat.setString(6, order.getRepDesc());

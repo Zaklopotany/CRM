@@ -15,6 +15,8 @@ import pl.coderslab.model.Orders;
 public class showOrdersActive extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
 		List <Orders> listOrders = OrdersDao.loadAllByStatus(3);		
 		
 		request.setAttribute("orders", listOrders);

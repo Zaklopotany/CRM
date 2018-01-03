@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div id = "pageheader" class="jumbotron text-center">
+	<h1>Centrum zarządzania Światem </h1>
 		<jsp:invoke fragment="header"/>
 	</div>
 	<div class="container">

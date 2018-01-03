@@ -1,13 +1,14 @@
 package pl.coderslab.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Orders {
 	
 	private int id;
-	private Date receiveDate;
-	private	Date expRepiarDate;
-	private Date beginRepair;
+	private LocalDate receiveDate;
+	private	LocalDate expRepiarDate;
+	private LocalDate beginRepair;
 	private int employeeId;
 	private	String probDesc;
 	private	String repDesc;
@@ -17,12 +18,17 @@ public class Orders {
 	private double partsPrice;
 	private double manHour; // take this value from Employee manHour
 	private double workHour;
+	private  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	
 	public Orders() {
 		super();
+		setCustomerCost(0);
+		setPartsPrice(0);
+		setWorkHour(0);
 	}
 	
-	public Orders(int id, Date receiveDate, Date expRepiarDate, Date beginRepair, int employeeId, String probDesc,
+	public Orders(int id, String receiveDate, String expRepiarDate, String beginRepair, int employeeId, String probDesc,
 			String repDesc, int statusId, int carId, double customerCost, double partsPrice, double manHour,
 			double workHour) {
 		super();
@@ -48,25 +54,25 @@ public class Orders {
 		this.id = id;
 		return this;
 	}
-	public Date getReceiveDate() {
-		return receiveDate;
+	public String getReceiveDate() {
+		return this.receiveDate.toString();
 	}
-	public Orders setReceiveDate(Date receiveDate) {
-		this.receiveDate = receiveDate;
+	public Orders setReceiveDate(String receiveDate) {
+		this.receiveDate = LocalDate.parse(receiveDate, dtf);
 		return this;
 	}
-	public Date getExpRepiarDate() {
-		return expRepiarDate;
+	public String getExpRepiarDate() {
+		return this.expRepiarDate.toString();
 	}
-	public Orders setExpRepiarDate(Date expRepiarDate) {
-		this.expRepiarDate = expRepiarDate;
+	public Orders setExpRepiarDate(String expRepiarDate) {
+		this.expRepiarDate = LocalDate.parse(expRepiarDate, dtf);
 		return this;
 	}
-	public Date getBeginRepair() {
-		return beginRepair;
+	public String getBeginRepair() {
+		return this.beginRepair.toString();
 	}
-	public Orders setBeginRepair(Date beginRepair) {
-		this.beginRepair = beginRepair;
+	public Orders setBeginRepair(String beginRepair) {
+		this.beginRepair = LocalDate.parse(beginRepair, dtf);
 		return this;
 	}
 	public int getEmployeeId() {

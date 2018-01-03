@@ -6,7 +6,7 @@
 		username="root" 
 		password="coderslab" 
 		driverClassName="com.mysql.jdbc.Driver"	
-		url="jdbc:mysql://localhost:3306/crm" 
+		url="jdbc:mysql://localhost:3306/crm?autoReconnect=true&amp;characterEncoding=UTF-8" 
 		maxActive="100" 
 		maxIdle="30"
 		maxWait="10000" />
