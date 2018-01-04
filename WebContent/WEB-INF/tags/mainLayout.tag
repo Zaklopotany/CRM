@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id = "pageheader" class="jumbotron text-center">
-	<h1>Centrum zarządzania Światem </h1>
+	<jsp:include page="/VIEW/header.jsp" />
 		<jsp:invoke fragment="header"/>
 	</div>
 	<div class="container">
@@ -22,7 +22,7 @@
 				<jsp:invoke fragment="menu"/>
 				<jsp:invoke fragment="submenu"/>
 			</div>
-			<div class="col-sm-8">
+			<div class="col-sm-9">
 				<jsp:doBody/>
 			</div>
 		</div>

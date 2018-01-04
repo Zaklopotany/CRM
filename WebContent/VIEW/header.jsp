@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Centrum zarządzania : D</h1>
+<h1>Centrum zarządzania Wszechświatem</h1>
 </body>
 </html>

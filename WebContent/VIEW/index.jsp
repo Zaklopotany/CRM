@@ -16,7 +16,7 @@
 	<t:mainLayout>
 
 		<jsp:attribute name="header">
-			<jsp:include page="/VIEW/header.jsp" />
+			<p>Widok główny</p>
 		</jsp:attribute>
 
 		<jsp:body>

@@ -26,6 +26,9 @@ public class Orders {
 		setCustomerCost(0);
 		setPartsPrice(0);
 		setWorkHour(0);
+		this.expRepiarDate = LocalDate.now();
+		this.receiveDate = LocalDate.now();
+		this.beginRepair = LocalDate.now();
 	}
 	
 	public Orders(int id, String receiveDate, String expRepiarDate, String beginRepair, int employeeId, String probDesc,

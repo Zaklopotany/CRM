@@ -20,6 +20,7 @@
 			<h1>Szczególy zamówienia id = ${order.getId()}</h1>
 		</jsp:attribute>
 		<jsp:attribute name="submenu">
+			<h3>Akcja</h3>
 			<p><a href ="<c:url value="/OrderModify?id=${order.getId() }"/>">Edycja zlecenia</a> </p>
 		</jsp:attribute>
 		<jsp:body>
@@ -35,7 +36,7 @@
 						</td>
 						<td>ID pracownika<br>
 						${order.getEmployeeId()}&nbsp; 
-						<a href="<c:url value="/showEmployeeDetails?id=${order.getEmployeeId()}"/>">Więcej Info</a>
+						<a href="<c:url value="/ShowEmployeeDetails?id=${order.getEmployeeId()}"/>">Więcej Info</a>
 						</td>
 					</tr>
 					<tr> 
@@ -55,7 +56,7 @@
 						</td>
 						<td> <b>Id samochodu</b><br>
 						${order.getCarId()} &nbsp; 
-						<a href="<c:url value="/showCarDetails?id=${order.getCarId()}"/>">Więcej Info</a>
+						<a href="<c:url value="/ShowVehicleDetails?id=${order.getCarId()}"/>">Więcej Info</a>
 						</td>
 					</tr>
 					<tr>

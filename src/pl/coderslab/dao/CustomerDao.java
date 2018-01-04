@@ -22,7 +22,7 @@ public class CustomerDao {
 				while (rs.next()) {
 					Customer tempCust = new Customer();
 					tempCust.setId(rs.getInt("id"));
-					tempCust.setFirstname(rs.getString("firstname"));
+					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
 					tempCust.setBdDate(rs.getDate("bd_date"));
 					customerList.add(tempCust);					
@@ -48,7 +48,7 @@ public class CustomerDao {
 				while (rs.next()) {
 					Customer tempCust = new Customer();
 					tempCust.setId(rs.getInt("id"));
-					tempCust.setFirstname(rs.getString("firstname"));
+					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
 					tempCust.setBdDate(rs.getDate("bd_date"));
 					customerList.add(tempCust);
@@ -70,7 +70,7 @@ public class CustomerDao {
 			try(ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
 					tempCust.setId(rs.getInt("id"));
-					tempCust.setFirstname(rs.getString("firstname"));
+					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
 					tempCust.setBdDate(rs.getDate("bd_date"));					
 				}

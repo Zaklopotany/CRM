@@ -59,7 +59,7 @@ public class VehicleDao {
 		return tempVehicle;
 	}
 	
-	public static List<Vehicle> loadAllbyUserId(int id) {
+	public static List<Vehicle> loadAllbyClientId(int id) {
 		String sql="Select * from Vehicle where client_id = ?";
 		List<Vehicle> listVeh = new ArrayList<>();
 		try (Connection con = DbUtil.getConn()) {

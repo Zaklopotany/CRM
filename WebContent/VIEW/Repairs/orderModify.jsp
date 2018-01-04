@@ -16,7 +16,12 @@
 
 	<t:mainLayout>
 		<jsp:attribute name="header">
-			<h1>Edycja zlecenie id = ${order.getId()}</h1>
+			<c:if test="${order.getId() > 0 }">
+				<h1>Edycja zlecenie id = ${order.getId()}</h1>
+			</c:if>
+			<c:if test="${order.getId() == 0 }">
+				<h1>Dodawanie nowego zlecenie</h1>
+			</c:if>
 		</jsp:attribute>
 		<jsp:body>
 
@@ -86,7 +91,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<input type="submit" class="btn btn-success btn-block">
+			<input type="submit" name="Zatwierdź" class="btn btn-success btn-block">
 		</form>
 		</jsp:body>
 	</t:mainLayout>

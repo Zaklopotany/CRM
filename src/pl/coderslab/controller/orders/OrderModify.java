@@ -1,10 +1,7 @@
 package pl.coderslab.controller.orders;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.DateFormatter;
 
 import pl.coderslab.dao.OrdersDao;
 import pl.coderslab.dao.StatusDao;
@@ -25,12 +21,16 @@ public class OrderModify extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		
-		int id = Integer.parseInt(request.getParameter("id"));
-		Orders tempOrder = OrdersDao.loadById(id);
+		String idString = request.getParameter("id");
 		List<Status> statusList = StatusDao.loadAll();
-		Status tempStatus = StatusDao.loadById(tempOrder.getStatusId());
+		Orders tempOrder = new Orders();
+		Status tempStatus = StatusDao.loadById(1);
+		
+		if ( idString !=null) {
+			int id = Integer.parseInt(idString);			
+			tempOrder = OrdersDao.loadById(id);
+			tempStatus = StatusDao.loadById(tempOrder.getStatusId());
+		}
 
 		request.setAttribute("tempStatus", tempStatus);
 		request.setAttribute("status", statusList);
@@ -53,7 +53,7 @@ public class OrderModify extends HttpServlet {
 		String customerPrice = request.getParameter("customerPrice");
 		String partsPrice = request.getParameter("partsPrice");
 		String workHour = request.getParameter("workHour");
-		System.out.println(problemDesc);
+		
 		Orders tempOrder = new Orders();
 		tempOrder.setId(id).setReceiveDate(receiveDate).setExpRepiarDate(expRepiarDate).setBeginRepair(beginRepairDate);
 		tempOrder.setEmployeeId(Integer.parseInt(employeeId)).setProbDesc(problemDesc).setRepDesc(repairDesc);
@@ -62,6 +62,8 @@ public class OrderModify extends HttpServlet {
 		tempOrder.setPartsPrice(Double.parseDouble(partsPrice)).setWorkHour(Double.parseDouble(workHour));
 
 		OrdersDao.saveToDb(tempOrder);
+		response.sendRedirect(request.getContextPath() + "/showOrderDetails?id="+id);		
+
 
 	}
 }

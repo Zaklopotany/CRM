@@ -13,6 +13,24 @@ import pl.coderslab.model.Orders;
 
 public class OrdersDao {
 	
+	public static Orders getAllParam (ResultSet rs) throws SQLException{
+		Orders tempOrder = new Orders();
+		tempOrder.setId(rs.getInt("id"));
+		tempOrder.setReceiveDate(rs.getString("receive_date"));
+		tempOrder.setExpRepiarDate(rs.getString("expect_repair_date"));
+		tempOrder.setBeginRepair(rs.getString("repair_begin"));
+		tempOrder.setEmployeeId(rs.getInt("employee_id"));
+		tempOrder.setProbDesc(rs.getString("problem_description"));
+		tempOrder.setRepDesc(rs.getString("repair_description"));
+		tempOrder.setStatusId(rs.getInt("status_id"));
+		tempOrder.setCarId(rs.getInt("car_id"));
+		tempOrder.setCustomerCost(rs.getDouble("customer_cost"));
+		tempOrder.setPartsPrice(rs.getDouble("parts_price"));
+		tempOrder.setManHour(rs.getDouble("man_hour"));
+		tempOrder.setWorkHour(rs.getDouble("work_hour"));		
+		return tempOrder;
+	}
+	
 	public static List<Orders> loadAll() {
 		String sql = "Select * from Orders;";
 		List<Orders> ordersList = new ArrayList<>();
@@ -75,8 +93,81 @@ public class OrdersDao {
 		return tempOrder;
 	}
 	
+	
+	
 	public static List<Orders> loadAllByStatus(int id) {
 		String sql = "Select * from Orders where status_id = ?;";
+		List<Orders> ordersList = new ArrayList<>();
+		try (Connection con = DbUtil.getConn()) {
+			PreparedStatement prepStat = con.prepareStatement(sql);
+			prepStat.setInt(1, id);
+			try (ResultSet rs = prepStat.executeQuery()) {
+				while (rs.next()) {
+					Orders tempOrder = getAllParam(rs);
+					ordersList.add(tempOrder);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ordersList;
+	}
+
+	public static List<Orders> loadAllByVehicleId(int id) {
+		String sql = "Select * from Orders where car_id = ?;";
+		List<Orders> ordersList = new ArrayList<>();
+		try (Connection con = DbUtil.getConn()) {
+			PreparedStatement prepStat = con.prepareStatement(sql);
+			prepStat.setInt(1, id);
+			try (ResultSet rs = prepStat.executeQuery()) {
+				while (rs.next()) {
+					Orders tempOrder = getAllParam(rs);
+					ordersList.add(tempOrder);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ordersList;
+	}
+
+	public static List<Orders> loadAllByCustomerId(int id) {
+		String sql = "select * from Orders o "
+				+ "inner join (select v.id additional_car_id from Customer c "
+				+ "left join Vehicle v on c.id = v.client_id where c.id = ?) cv "
+				+ "on o.car_id = cv.additional_car_id ;";
+		
+		List<Orders> ordersList = new ArrayList<>();
+		try (Connection con = DbUtil.getConn()) {
+			PreparedStatement prepStat = con.prepareStatement(sql);
+			prepStat.setInt(1, id);
+			try (ResultSet rs = prepStat.executeQuery()) {
+				while (rs.next()) {
+					Orders tempOrder = new Orders();
+					tempOrder.setId(rs.getInt("id"));
+					tempOrder.setReceiveDate(rs.getString("receive_date"));
+					tempOrder.setExpRepiarDate(rs.getString("expect_repair_date"));
+					tempOrder.setBeginRepair(rs.getString("repair_begin"));
+					tempOrder.setEmployeeId(rs.getInt("employee_id"));
+					tempOrder.setProbDesc(rs.getString("problem_description"));
+					tempOrder.setRepDesc(rs.getString("repair_description"));
+					tempOrder.setStatusId(rs.getInt("status_id"));
+					tempOrder.setCarId(rs.getInt("car_id"));
+					tempOrder.setCustomerCost(rs.getDouble("customer_cost"));
+					tempOrder.setPartsPrice(rs.getDouble("parts_price"));
+					tempOrder.setManHour(rs.getDouble("man_hour"));
+					tempOrder.setWorkHour(rs.getDouble("work_hour"));
+					ordersList.add(tempOrder);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ordersList;
+	}
+
+	public static List<Orders> loadAllByEmployeeId(int id) {
+		String sql = "Select * from Orders where employee_id = ?;";
 		List<Orders> ordersList = new ArrayList<>();
 		try (Connection con = DbUtil.getConn()) {
 			PreparedStatement prepStat = con.prepareStatement(sql);
