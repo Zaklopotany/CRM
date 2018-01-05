@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/VIEW/css/bootstrap.css">
 
+			
 </head>
 <body>
 	<t:mainLayout>

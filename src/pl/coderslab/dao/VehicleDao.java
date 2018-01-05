@@ -11,6 +11,17 @@ import java.util.List;
 import pl.coderslab.model.Vehicle;
 
 public class VehicleDao {
+	public static Vehicle getAllParam(ResultSet rs) throws SQLException{
+		Vehicle tempVehicle = new Vehicle();
+		tempVehicle.setId(rs.getInt("id"));
+		tempVehicle.setModel(rs.getString("model"));
+		tempVehicle.setBrand(rs.getString("brand"));
+		tempVehicle.setProductionYear(rs.getString("production_year"));
+		tempVehicle.setRegistrationNumber(rs.getString("registration_number"));
+		tempVehicle.setNextReviewDate(rs.getString("next_review_date"));
+		tempVehicle.setClientId(rs.getInt("client_id"));
+		return tempVehicle;
+	}
 	
 	public static List<Vehicle> loadAll() {
 		String sql = "Select * from Vehicle;";
@@ -19,14 +30,7 @@ public class VehicleDao {
 			Statement stat = con.createStatement();
 			try (ResultSet rs = stat.executeQuery(sql)) {
 				while (rs.next()) {
-					Vehicle tempVehicle = new Vehicle();
-					tempVehicle.setId(rs.getInt("id"));
-					tempVehicle.setModel(rs.getString("model"));
-					tempVehicle.setBrand(rs.getString("brand"));
-					tempVehicle.setProductionYear(rs.getDate("production_year"));
-					tempVehicle.setRegistrationNumber(rs.getString("registration_number"));
-					tempVehicle.setNextReviewDate(rs.getDate("next_review_date"));
-					tempVehicle.setClientId(rs.getInt("client_id"));
+					Vehicle tempVehicle = VehicleDao.getAllParam(rs);
 					vehicleList.add(tempVehicle);
 				}
 			}
@@ -44,13 +48,7 @@ public class VehicleDao {
 			prepStat.setInt(1, id);
 			try (ResultSet rs = prepStat.executeQuery()) {
 				while (rs.next()) {
-					tempVehicle.setId(rs.getInt("id"));
-					tempVehicle.setModel(rs.getString("model"));
-					tempVehicle.setBrand(rs.getString("brand"));
-					tempVehicle.setProductionYear(rs.getDate("production_year"));
-					tempVehicle.setRegistrationNumber(rs.getString("registration_number"));
-					tempVehicle.setNextReviewDate(rs.getDate("next_review_date"));
-					tempVehicle.setClientId(rs.getInt("client_id"));
+					tempVehicle = VehicleDao.getAllParam(rs);
 				}
 			}
 		} catch (SQLException e) {
@@ -67,14 +65,7 @@ public class VehicleDao {
 			prepStat.setInt(1, id);
 			try (ResultSet rs = prepStat.executeQuery()) {
 				while(rs.next()) {
-					Vehicle tempVehicle = new Vehicle();
-					tempVehicle.setId(rs.getInt("id"));
-					tempVehicle.setModel(rs.getString("model"));
-					tempVehicle.setBrand(rs.getString("brand"));
-					tempVehicle.setProductionYear(rs.getDate("production_year"));
-					tempVehicle.setRegistrationNumber(rs.getString("registration_number"));
-					tempVehicle.setNextReviewDate(rs.getDate("next_review_date"));
-					tempVehicle.setClientId(rs.getInt("client_id"));
+					Vehicle tempVehicle = VehicleDao.getAllParam(rs);
 					listVeh.add(tempVehicle);
 				}
 			}
@@ -94,11 +85,22 @@ public class VehicleDao {
 				PreparedStatement prepStat = con.prepareStatement(sql);
 				prepStat.setString(1, vehicle.getModel());
 				prepStat.setString(2, vehicle.getBrand());
-				prepStat.setDate(3, vehicle.getProductionYear());
 				prepStat.setString(4, vehicle.getRegistrationNumber());
-				prepStat.setDate(5, vehicle.getNextReviewDate());
-				prepStat.setInt(6, vehicle.getClientId());
-				
+				if(vehicle.getClientId() <= 0) {
+					prepStat.setString(6, null);
+				}else {
+					prepStat.setInt(6, vehicle.getClientId());					
+				}
+				if (vehicle.getNextReviewDate() != null) {
+					prepStat.setString(5, vehicle.getNextReviewDate().toString());					
+				} else {
+					prepStat.setString(5, null);					
+				}
+				if (vehicle.getProductionYear() != null) {
+					prepStat.setString(3, vehicle.getProductionYear().toString());					
+				} else {
+					prepStat.setString(3, null);				
+				}
 				prepStat.executeUpdate();
 			} else {
 				String sql = "update Vehicle set "
@@ -108,11 +110,23 @@ public class VehicleDao {
 				PreparedStatement prepStat = con.prepareStatement(sql);
 				prepStat.setString(1, vehicle.getModel());
 				prepStat.setString(2, vehicle.getBrand());
-				prepStat.setDate(3, vehicle.getProductionYear());
 				prepStat.setString(4, vehicle.getRegistrationNumber());
-				prepStat.setDate(5, vehicle.getNextReviewDate());
-				prepStat.setInt(6, vehicle.getClientId());
+				if(vehicle.getClientId() <= 0) {
+					prepStat.setString(6, null);
+				}else {
+					prepStat.setInt(6, vehicle.getClientId());					
+				}
 				prepStat.setInt(7, vehicle.getId());
+				if (vehicle.getNextReviewDate() != null) {
+					prepStat.setString(5, vehicle.getNextReviewDate().toString());					
+				} else {
+					prepStat.setString(5, null);										
+				}
+				if (vehicle.getProductionYear() != null) {
+					prepStat.setString(3, vehicle.getProductionYear().toString());					
+				} else {
+					prepStat.setString(3, null);										
+				}
 				prepStat.executeUpdate();
 			}
 		} catch (SQLException e) {

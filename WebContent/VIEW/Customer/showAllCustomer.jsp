@@ -32,6 +32,7 @@
 								<td>${list.getSurname()}</td>
 								<td>${list.getBdDate()}</td>
 								<td><a href="<c:url value="/ShowCustomerDetails?id=${list.getId()}"/>" class="btn btn-info" role="button">Szczegóły</a></td>
+								<td><a href="<c:url value="/AddCustomer?id=${list.getId()}"/>" class="btn btn-primary" role="button">Edytuj</a></td>
 								<td><a href="<c:url value="/DeleteCustomer?id=${list.getId()}"/>" class="btn btn-danger" role="button">Usuń</a></td>
 						</c:forEach>
 					</c:if>

@@ -24,7 +24,7 @@ public class CustomerDao {
 					tempCust.setId(rs.getInt("id"));
 					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
-					tempCust.setBdDate(rs.getDate("bd_date"));
+					tempCust.setBdDate(rs.getString("bd_date"));
 					customerList.add(tempCust);					
 				}
 			}
@@ -50,7 +50,7 @@ public class CustomerDao {
 					tempCust.setId(rs.getInt("id"));
 					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
-					tempCust.setBdDate(rs.getDate("bd_date"));
+					tempCust.setBdDate(rs.getString("bd_date"));
 					customerList.add(tempCust);
 					
 				}
@@ -72,7 +72,7 @@ public class CustomerDao {
 					tempCust.setId(rs.getInt("id"));
 					tempCust.setFirstname(rs.getString("name"));
 					tempCust.setSurname(rs.getString("surname"));
-					tempCust.setBdDate(rs.getDate("bd_date"));					
+					tempCust.setBdDate(rs.getString("bd_date"));					
 				}
 			}
 		} catch (SQLException e) {
@@ -89,7 +89,11 @@ public class CustomerDao {
 				PreparedStatement prepStat = con.prepareStatement(sql);
 				prepStat.setString(1, customer.getFirstname());
 				prepStat.setString(2, customer.getSurname());
-				prepStat.setDate(3, (java.sql.Date) customer.getBdDate());
+				if (customer.getBdDate() != null) {
+					prepStat.setString(3,customer.getBdDate().toString());					
+				} else {
+					prepStat.setString(3,null);					
+				}
 				
 				prepStat.executeUpdate();
 			} else {
@@ -97,7 +101,11 @@ public class CustomerDao {
 				PreparedStatement prepStat = con.prepareStatement(sql);
 				prepStat.setString(1, customer.getFirstname());
 				prepStat.setString(2, customer.getSurname());
-				prepStat.setDate(3, (java.sql.Date)customer.getBdDate());
+				if (customer.getBdDate() != null) {
+					prepStat.setString(3,customer.getBdDate().toString());					
+				} else {
+					prepStat.setString(3,null);					
+				}
 				prepStat.setInt(4, customer.getId());
 				
 				prepStat.executeUpdate();

@@ -1,19 +1,22 @@
 package pl.coderslab.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Vehicle {
 	private int id;
 	private String model;
 	private String brand;
-	private Date productionYear;
+	private LocalDate productionYear;
 	private String registrationNumber;
-	private Date nextReviewDate;
+	private LocalDate nextReviewDate;
 	private int clientId;
+	private  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	
 	//creators
-	public Vehicle(int id, String model, String brand, Date productionYear, String registrationNumber,
-			Date nextReviewDate, int clientId) {
+	public Vehicle(int id, String model, String brand, String productionYear, String registrationNumber,
+			String nextReviewDate, int clientId) {
 		super();
 		setId(id);
 		setModel(model);
@@ -56,12 +59,16 @@ public class Vehicle {
 		return this;
 	}
 
-	public Date getProductionYear() {
+	public LocalDate getProductionYear() {
 		return productionYear;
 	}
 
-	public Vehicle setProductionYear(Date productionYear) {
-		this.productionYear = productionYear;
+	public Vehicle setProductionYear(String productionYear) {
+		if (productionYear!= null) {
+			if (productionYear.length() > 4) {
+				this.productionYear = LocalDate.parse(productionYear, dtf);
+			}
+		}
 		return this;
 	}
 
@@ -74,12 +81,16 @@ public class Vehicle {
 		return this;
 	}
 
-	public Date getNextReviewDate() {
+	public LocalDate getNextReviewDate() {
 		return nextReviewDate;
 	}
 
-	public Vehicle setNextReviewDate(Date nextReviewDate) {
-		this.nextReviewDate = nextReviewDate;
+	public Vehicle setNextReviewDate(String nextReviewDate) {
+		if (nextReviewDate != null) {
+			if (nextReviewDate.length() > 4) {
+				this.nextReviewDate = LocalDate.parse(nextReviewDate, dtf);			
+			}
+		}
 		return this;
 	}
 

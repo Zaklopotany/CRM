@@ -10,7 +10,13 @@
 <head>
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/VIEW/css/bootstrap.css">
-
+<script type="text/javascript">
+			  function openNewWindow()
+			    {
+				var contextPath = "<%= request.getContextPath()%>";
+			    window.open(contextPath + "/showOrdersActive")
+			    }			
+			</script>
 </head>
 <body>
 
@@ -24,7 +30,8 @@
 			</c:if>
 		</jsp:attribute>
 		<jsp:body>
-
+			<a href="javaScript:{openNewWindow();}">link do wopen</a>
+		
 		<form id="OrderModify" action ="<c:url value="/OrderModify"/>" method="post">
 			<input type="hidden" value="${order.getId()}" name="id">
 			<table class="table">

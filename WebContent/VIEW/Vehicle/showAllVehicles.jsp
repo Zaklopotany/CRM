@@ -32,6 +32,7 @@
 								<td>${v.getModel()}</td>
 								<td>${v.getClientId()}</td>
 								<td><a href="<c:url value="/ShowVehicleDetails?id=${v.getId()}"/>" class="btn btn-info" role="button">Szczegóły</a></td>
+								<td><a href="<c:url value="/AddVehicle?id=${v.getId()}"/>" class="btn btn-primary" role="button">Edytuj</a></td>
 								<td><a href="<c:url value="/DeleteVehicle?id=${v.getId()}"/>" class="btn btn-danger" role="button">Usuń</a></td>
 							</tr>
 						</c:forEach>

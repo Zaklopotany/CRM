@@ -50,8 +50,8 @@
 						<td>${vehicle.getClientId()}</td>
 					</tr>
 					<tr>
-						<td><a href="" class="btn btn-primary btn-block" role="button">Edycja</a></td>
-						<td><a href="" class="btn btn-danger btn-block" role="button">Usuń</a></td>
+						<td><a href="<c:url value="/AddVehicle?id=${vehicle.getId() }"/>" class="btn btn-primary btn-block" role="button">Edycja</a></td>
+						<td><a href="<c:url value="/DeleteVehicle?id=${vehicle.getId()}"/>" class="btn btn-danger btn-block" role="button">Usuń</a></td>
 					</tr>
 				</tbody>
 			</table>

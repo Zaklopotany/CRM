@@ -13,6 +13,7 @@
 <p><a href="<c:url value="/ShowAllEmployee"/>">Wykaz pracowników</a></p>
 <p><a href="<c:url value="/ShowAllCustomer"/>">Wykaz klientów</a></p>
 <p><a href="<c:url value="/ShowAllVehicle"/>">Wykaz Samochodów</a></p>
+<p><a href="<c:url value="/ShowAllOrders"/>">Wykaz Zleceń</a></p>
 
 </body>
 </html>

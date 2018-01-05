@@ -1979,6 +1979,21 @@ select.form-control:not([size]):not([multiple]) {
   height: calc(2.25rem + 2px);
 }
 
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+}
+
+.slate select   { color: #000; }
+.green select   { color: #fff; }
+.blue select    { color: #fff; }
+.yellow select  { color: #000; }
+.black select   { color: #fff; }
+
 select.form-control:focus::-ms-value {
   color: #495057;
   background-color: #fff;

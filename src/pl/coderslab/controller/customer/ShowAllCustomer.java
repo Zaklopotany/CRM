@@ -18,7 +18,7 @@ public class ShowAllCustomer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Customer> customerList = new ArrayList<>();
 		customerList = CustomerDao.loadAll();
-		String[] colName= {"Id klienta","Imię","Nazwisko","Data urodzenia","",""};
+		String[] colName= {"Id klienta","Imię","Nazwisko","Data urodzenia","","",""};
 		
 		request.setAttribute("colName", colName);
 		request.setAttribute("customerList", customerList);
